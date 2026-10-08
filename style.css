@@ -47,9 +47,25 @@ h3 {
   line-height: normal;
 }
 
-.date_field input[type="text"]::placeholder {
+/* 入力文字と同じ位置に重ねる表示層(入力済み部分は透明、未入力の目印だけ灰色) */
+.date_mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  white-space: pre;
+  color: transparent;
+  pointer-events: none;
+}
+
+.date_mask_rest {
   color: #757575;
-  opacity: 1;
 }
 
 .calendar_icon {
