@@ -1,29 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
   <title>カレンダーのテスト</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+
+  <link rel="stylesheet" href="style.css?v=20261009-2">
+  <script src="script.js?v=20261009-2" defer></script>
 </head>
 <body>
-  <h3>カレンダーのテスト 20261009 0253</h3>
-  <div class="date_wrapper">
-    <label id="dateLabel">日付</label>
-    <div class="date_field" role="group" aria-labelledby="dateLabel">
-      <div class="date_parts">
-        <input id="year" class="date_part year" type="text" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="年" aria-label="年（4桁）">
-        <span class="separator" aria-hidden="true">/</span>
-        <input id="month" class="date_part month" type="text" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="月" aria-label="月（2桁）">
-        <span class="separator" aria-hidden="true">/</span>
-        <input id="day" class="date_part day" type="text" inputmode="numeric" autocomplete="off" maxlength="2" placeholder="日" aria-label="日（2桁）">
-      </div>
-      <svg class="calendar_icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>
-      <input type="date" id="purchaseDate" class="date_picker" aria-label="カレンダーから日付を選択" tabindex="-1">
+
+<h3>カレンダーのテスト 20261009 修正版</h3>
+
+<div class="date_wrapper">
+
+  <label id="dateLabel">日付</label>
+
+  <div class="date_field"
+       role="group"
+       aria-labelledby="dateLabel">
+
+    <div class="date_parts">
+
+      <input
+        id="year"
+        class="date_part year"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="4"
+        placeholder="年"
+        aria-label="年（4桁）"
+      >
+
+      <span class="separator" aria-hidden="true">/</span>
+
+      <input
+        id="month"
+        class="date_part month"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="2"
+        placeholder="月"
+        aria-label="月（2桁）"
+      >
+
+      <span class="separator" aria-hidden="true">/</span>
+
+      <input
+        id="day"
+        class="date_part day"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="2"
+        placeholder="日"
+        aria-label="日（2桁）"
+      >
+
     </div>
-    <p id="dateError" class="invalid" role="status" hidden></p>
-    <p id="savedDate" class="saved_date" aria-live="polite"></p>
+
+    <div class="calendar_button">
+      <svg
+        class="calendar_icon"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M7 3v4M17 3v4M3 10h18"/>
+
+      </svg>
+
+      <input
+        type="date"
+        id="purchaseDate"
+        class="date_picker"
+        aria-label="カレンダーから日付を選択"
+      >
+    </div>
+
   </div>
+
+  <p
+    id="dateError"
+    class="invalid"
+    role="status"
+    hidden>
+  </p>
+
+  <p
+    id="savedDate"
+    class="saved_date"
+    aria-live="polite">
+  </p>
+
+</div>
+
 </body>
 </html>
