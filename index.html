@@ -1,55 +1,87 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>カレンダーのテスト</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css?v=20261008-4">
 </head>
 <body>
-  <h3>カレンダーのテスト</h3>
 
+<h3>カレンダーのテスト20261008 1405</h3>
 
 
 <div class="date_wrapper">
-  <label for="purchaseDate">日付</label>
-
-  <div class="date_field">
-
-    <!-- 年月日を入力・選択する -->
-    <input
-      type="date"
-      id="purchaseDate"
-      name="purchaseDate"
-      aria-label="年月日を入力または選択">
-
-    <!-- 未入力時の表示 -->
-    <span
-      id="datePlaceholder"
-      class="date_placeholder"
-      aria-hidden="true">
-      年 / 月 / 日
-    </span>
-
-    <!-- カレンダーアイコン -->
-    <img
-      class="calendar_icon"
-      src="calender-icon.svg"
-      width="24"
-      height="24"
-      alt="">
-
-  </div>
-
-  <p id="dateError" class="invalid" hidden></p>
-  <p id="savedDate"></p>
+    <label for="dateText">日付</label>
+    <div class="date_field">
+        <input type="text" id="dateText" name="purchaseDate" inputmode="numeric" autocomplete="off" maxlength="14">
+        <span class="date_mask" aria-hidden="true">
+            <span id="maskTyped"></span>
+            <span id="maskRest" class="date_mask_rest">年 / 月 / 日</span>
+        </span>
+        <img class="calendar_icon" src="calender-icon.svg" width="24" height="24" alt="">
+        <input type="date" id="purchaseDate" class="date_picker" aria-label="カレンダーから選択" tabindex="-1">
+    </div>
 </div>
 
+<script>
+    const text = document.getElementById("dateText");
+    const picker = document.getElementById("purchaseDate");
 
+    const maskTyped = document.getElementById("maskTyped");
+    const maskRest = document.getElementById("maskRest");
 
+    // 入力途中でも区切りの " / " を表示する
+    const format = (digits) => {
+        let s = digits.slice(0, 4);
+        if (digits.length >= 4) s += " / " + digits.slice(4, 6);
+        if (digits.length >= 6) s += " / " + digits.slice(6, 8);
+        return s;
+    };
 
-  
-  <input type="date" id="aaa" class="test" aria-label="カレンダーから日付を選択">
+    // 未入力部分の目印(年 / 月 / 日)を灰色で補う
+    const rest = (n) => {
+        if (n < 4) return (n === 0 ? "年" : "") + " / 月 / 日";
+        if (n < 6) return (n === 4 ? "月" : "") + " / 日";
+        return n === 6 ? "日" : "";
+    };
+
+    const renderMask = (digits) => {
+        maskTyped.textContent = text.value;
+        maskRest.textContent = rest(digits.length);
+    };
+    const isValid = (y, m, d) => {
+        const dt = new Date(y, m - 1, d);
+        return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
+    };
+
+    let prevDigits = "";
+    text.addEventListener("input", (e) => {
+        let digits = text.value.replace(/\D/g, "").slice(0, 8);
+        // 区切りだけを消した場合は直前の数字を1つ削除する
+        if (e.inputType === "deleteContentBackward" && digits === prevDigits) digits = digits.slice(0, -1);
+        prevDigits = digits;
+        text.value = format(digits);
+        renderMask(digits);
+        if (digits.length === 8 && isValid(+digits.slice(0, 4), +digits.slice(4, 6), +digits.slice(6, 8))) {
+            picker.value = `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
+            text.setCustomValidity("");
+        } else {
+            picker.value = "";
+            text.setCustomValidity(digits.length ? "正しい日付を入力してください" : "");
+        }
+    });
+
+    picker.addEventListener("change", () => {
+        prevDigits = picker.value.replaceAll("-", "");
+        text.value = picker.value ? picker.value.replaceAll("-", " / ") : "";
+        renderMask(prevDigits);
+        text.setCustomValidity("");
+    });
+
+    picker.addEventListener("click", () => {
+        if (typeof picker.showPicker === "function") picker.showPicker();
+    });
+</script>
+
 </body>
 </html>
