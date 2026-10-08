@@ -11,8 +11,22 @@
 <h3>カレンダーのテスト20261008 1307</h3>
 <div class="date-wrapper">
   <label for="purchaseDate">日付</label>
-  <input type="date" id="purchaseDate" name="purchaseDate">
+  <div class="date-field" id="dateField">
+    <input type="date" id="purchaseDate" name="purchaseDate">
+
+    <span class="date-placeholder">年 / 月 / 日</span>
+
+    <img class="calendar-icon" src="calender-icon.svg" width="24" height="24" alt="">
+  </div>
 </div>
+
+<script>
+  const input = document.getElementById("purchaseDate");
+  const field = document.getElementById("dateField");
+  const update = () => field.classList.toggle("has-value", !!input.value);
+  ["input", "change"].forEach(e => input.addEventListener(e, update));
+  update();
+</script>
 
 </body>
 </html>
