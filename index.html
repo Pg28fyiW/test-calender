@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -10,22 +9,50 @@
 
 <h3>カレンダーのテスト20261008 1307</h3>
 <div class="date-wrapper">
-  <label for="purchaseDate">日付</label>
-  <div class="date-field" id="dateField">
-    <input type="date" id="purchaseDate" name="purchaseDate">
-
-    <span class="date-placeholder">年 / 月 / 日</span>
+  <label for="dateText">日付</label>
+  <div class="date-field">
+    <input type="text" id="dateText" name="purchaseDate"
+           inputmode="numeric" autocomplete="off"
+           placeholder="年 / 月 / 日" maxlength="14">
 
     <img class="calendar-icon" src="calender-icon.svg" width="24" height="24" alt="">
+
+    <input type="date" id="purchaseDate" class="date-picker"
+           aria-label="カレンダーから選択" tabindex="-1">
   </div>
 </div>
 
 <script>
-  const input = document.getElementById("purchaseDate");
-  const field = document.getElementById("dateField");
-  const update = () => field.classList.toggle("has-value", !!input.value);
-  ["input", "change"].forEach(e => input.addEventListener(e, update));
-  update();
+  const text = document.getElementById("dateText");
+  const picker = document.getElementById("purchaseDate");
+
+  // 数字のみ受け付け、YYYY / MM / DD に整形する
+  const format = (digits) => {
+    const y = digits.slice(0, 4), m = digits.slice(4, 6), d = digits.slice(6, 8);
+    return [y, m, d].filter(Boolean).join(" / ");
+  };
+
+  const isValid = (y, m, d) => {
+    const dt = new Date(y, m - 1, d);
+    return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
+  };
+
+  text.addEventListener("input", () => {
+    const digits = text.value.replace(/\D/g, "").slice(0, 8);
+    text.value = format(digits);
+    if (digits.length === 8 && isValid(+digits.slice(0, 4), +digits.slice(4, 6), +digits.slice(6, 8))) {
+      picker.value = `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
+      text.setCustomValidity("");
+    } else {
+      picker.value = "";
+      text.setCustomValidity(digits.length ? "正しい日付を入力してください" : "");
+    }
+  });
+
+  picker.addEventListener("change", () => {
+    text.value = picker.value ? picker.value.replaceAll("-", " / ") : "";
+    text.setCustomValidity("");
+  });
 </script>
 
 </body>
