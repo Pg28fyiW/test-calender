@@ -1,0 +1,50 @@
+.date-wrapper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+}
+
+.date-wrapper input[type="date"] {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.date-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+}
+
+.date-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.date-trigger svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: #333;
+}
