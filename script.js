@@ -173,16 +173,40 @@ function cleanInput(field, maxLength) {
   }
 }
 
+
 // 年月日の入力処理
 fields.forEach((field, i) => {
 
-  // 通常のinputイベントだけで処理
+  // ========================================
+  // カーソルを右端に移動する
+  // ========================================
+  function moveCursorToEnd() {
+    const length = field.value.length;
+
+    try {
+      field.setSelectionRange(length, length);
+    } catch (e) {
+      // カーソル制御非対応の場合は何もしない
+    }
+  }
+
+  // PCでクリックした場合
+  field.addEventListener('click', moveCursorToEnd);
+
+  // スマホでタップした場合
+  field.addEventListener('focus', () => {
+    requestAnimationFrame(moveCursorToEnd);
+  });
+
+  // ========================================
+  // 数字入力処理
+  // ========================================
   field.addEventListener('input', event => {
 
+    // 数字以外を除去する
     cleanInput(field, lengths[i]);
 
-    // 自動移動
-    // 年4桁で月へ、月2桁で日へ
+    // 年4桁で月へ、月2桁で日へ自動移動
     const isInsert =
       event.inputType?.startsWith('insert') ?? false;
 
@@ -194,13 +218,18 @@ fields.forEach((field, i) => {
       fields[i + 1].focus();
     }
 
+    // 日付チェック
     updateValidity();
   });
 
+  // ========================================
   // キーボード操作
+  // ========================================
   field.addEventListener('keydown', event => {
 
+    // 右矢印キーで次の項目へ移動
     if (event.key === 'ArrowRight' && i < 2) {
+
       if (
         field.selectionStart === field.value.length
       ) {
@@ -209,13 +238,16 @@ fields.forEach((field, i) => {
       }
     }
 
+    // 左矢印キーで前の項目へ移動
     if (event.key === 'ArrowLeft' && i > 0) {
+
       if (field.selectionStart === 0) {
         event.preventDefault();
         fields[i - 1].focus();
       }
     }
 
+    // / または Enter で次の項目へ移動
     if (
       (event.key === '/' || event.key === 'Enter') &&
       i < 2
@@ -225,7 +257,9 @@ fields.forEach((field, i) => {
     }
   });
 
-  // 貼り付け
+  // ========================================
+  // 貼り付け処理
+  // ========================================
   field.addEventListener('paste', event => {
 
     const text =
@@ -238,36 +272,47 @@ fields.forEach((field, i) => {
 
     const digits = text.replace(/\D/g, '');
 
+    // 日付をまとめて貼り付けた場合
     if (match || digits.length === 8) {
+
       event.preventDefault();
 
       let y, m, d;
 
       if (match) {
+
         [, y, m, d] = match;
+
       } else {
+
         y = digits.slice(0, 4);
         m = digits.slice(4, 6);
         d = digits.slice(6, 8);
       }
 
+      // 年月日に値を設定
       setDateParts(y, m, d);
+
+      // 日にフォーカス
       fields[2].focus();
     }
   });
 
+  // ========================================
   // フォーカスが外れたとき
+  // ========================================
   field.addEventListener('blur', () => {
 
     if (skipBlurValidation) return;
 
-    // ブラウザがフォーカスを移す処理の完了後に判定
+    // フォーカス移動の完了後に確認
     setTimeout(() => {
 
       if (skipBlurValidation) return;
 
       const active = document.activeElement;
 
+      // 年・月・日の入力中はエラーを確定しない
       if (
         fields.includes(active) ||
         active === picker
@@ -275,8 +320,9 @@ fields.forEach((field, i) => {
         return;
       }
 
-      // 月・日を1桁入力していたら2桁にする
+      // 月・日が1桁ならゼロ埋めする
       for (let j = 1; j <= 2; j++) {
+
         const value = fields[j].value;
 
         if (value.length === 1) {
@@ -284,11 +330,14 @@ fields.forEach((field, i) => {
         }
       }
 
+      // 日付チェック
       updateValidity(true);
 
     }, 0);
   });
+
 });
+
 
 // カレンダーから選択した場合
 picker.addEventListener('change', () => {
