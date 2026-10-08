@@ -1,0 +1,93 @@
+/* 元のSCSSから日付入力欄に必要な部分を抽出 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f5;
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+main {
+  width: 92vw;
+  margin: 0 auto;
+}
+
+.main_wrap {
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px 16px 30px;
+}
+
+h4 {
+  font-size: 1.6rem;
+  margin: 34px 0 12px;
+  line-height: 2rem;
+}
+
+h4::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: #eb1e1e;
+  margin-right: 6px;
+  position: relative;
+}
+
+.note {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+#purchaseDate {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 50px;
+  font-size: 16px;
+  font-family: inherit;
+  padding: 0 2%;
+  color: #333333;
+  background: #fff;
+  display: block;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  text-align: left;
+}
+
+@media screen and (max-width: 960px) {
+  #purchaseDate {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 961px) {
+  main {
+    width: 880px !important;
+  }
+
+  .main_wrap {
+    padding: 37px 0 33px;
+  }
+
+  .input_area {
+    width: 454px;
+    margin: 0 auto;
+  }
+
+  #purchaseDate {
+    height: 44px;
+    font-size: 16px;
+    padding: 0 5%;
+  }
+}
