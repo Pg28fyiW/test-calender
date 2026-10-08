@@ -91,3 +91,24 @@ input[type="date"]::-webkit-date-and-time-value {
     padding: 0 5%;
   }
 }
+
+
+
+
+/* iPhone Safari 対策 */
+input[type="date"] {
+  min-width: 0;
+  line-height: normal;
+  color: #333;
+  -webkit-text-fill-color: #333;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  text-align: left;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  display: inline-block;
+  color: #333;
+}
