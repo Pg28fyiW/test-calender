@@ -13,20 +13,24 @@ h3 {
   margin: 0 0 24px;
 }
 
-.date-wrapper {
-  display: grid;
-  gap: 8px;
+.date_wrapper {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 400px;
 }
 
-.date-field {
+.date_wrapper label {
+  margin-bottom: 8px;
+}
+
+.date_field {
   position: relative;
   width: 100%;
   height: 50px;
 }
 
-.date-field input[type="text"] {
+.date_field input[type="text"] {
   -webkit-appearance: none;
   appearance: none;
   display: block;
@@ -43,12 +47,12 @@ h3 {
   line-height: normal;
 }
 
-.date-field input[type="text"]::placeholder {
+.date_field input[type="text"]::placeholder {
   color: #757575;
   opacity: 1;
 }
 
-.calendar-icon {
+.calendar_icon {
   position: absolute;
   top: 50%;
   right: 16px;
@@ -59,7 +63,7 @@ h3 {
 }
 
 /* アイコン部分だけに透明なdate入力を重ね、タップでピッカーを開く */
-.date-field .date-picker {
+.date_field .date_picker {
   -webkit-appearance: none;
   appearance: none;
   position: absolute;
@@ -80,7 +84,7 @@ h3 {
   cursor: pointer;
 }
 
-.date-field .date-picker::-webkit-calendar-picker-indicator {
+.date_field .date_picker::-webkit-calendar-picker-indicator {
   position: absolute;
   inset: 0;
   width: 100%;
