@@ -1,84 +1,113 @@
-*, *::before, *::after { box-sizing: border-box; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Hiragino Sans", "Noto Sans JP",
+    "Yu Gothic", sans-serif;
   color: #000;
 }
-h3 { margin: 0 0 24px; }
-.date_wrapper { width: 100%; max-width: 400px; }
-.date_wrapper label { display: block; margin-bottom: 8px; }
-.date_field { position: relative; width: 100%; height: 50px; }
-.date_field .date_text {
-  -webkit-appearance: none;
-  appearance: none;
+
+.date_wrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+.date_wrapper label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.date_field {
   position: relative;
-  z-index: 1;
+  width: 100%;
+  height: 60px;
+}
+
+/* 日付入力欄 */
+.date_field input[type="date"] {
+  -webkit-appearance: auto;
+  appearance: auto;
+
   display: block;
   width: 100%;
-  height: 50px;
-  margin: 0;
+  height: 60px;
+
   padding: 0 56px 0 16px;
+
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 12px;
+
   background: #fff;
   color: #333;
-  font: inherit;
-  font-size: 16px; /* iPhoneの入力フォーカス時の拡大防止 */
-}
-.date_mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  height: 50px;
-  padding: 0 16px;
-  border: 1px solid transparent;
-  font: inherit;
+
+  font-family: inherit;
   font-size: 16px;
-  white-space: pre;
-  color: transparent;
-  pointer-events: none;
 }
-.date_mask_rest { color: #757575; }
+
+/* 年月日を常に表示 */
+.date_field input[type="date"]::-webkit-datetime-edit {
+  color: #333;
+  -webkit-text-fill-color: #333;
+}
+
+.date_field input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+/* カレンダーアイコン */
 .calendar_icon {
   position: absolute;
   top: 50%;
   right: 16px;
-  z-index: 2;
+
   width: 24px;
   height: 24px;
+
   transform: translateY(-50%);
   pointer-events: none;
 }
-/* 右端56pxだけを覆うので、左側ではテキストを手入力できる */
-.date_field .date_picker {
-  -webkit-appearance: none;
-  appearance: none;
+
+/* 標準カレンダーのクリック領域 */
+.date_field input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
-  top: 0;
   right: 0;
-  left: auto;
-  z-index: 3;
+
   width: 56px;
-  height: 50px;
-  min-width: 0;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  height: 100%;
+
   opacity: 0;
-  font-size: 16px;
   cursor: pointer;
 }
-.date_field .date_picker::-webkit-calendar-picker-indicator {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+
+/* エラーメッセージ */
+.invalid {
+  margin: 8px 0 0;
+  color: #eb1e1e;
+  font-size: 14px;
 }
-.invalid { margin: 8px 0 0; color: #eb1e1e; font-size: 14px; }
-.saved_date { margin: 8px 0 0; color: #555; font-size: 13px; }
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* 年・月・日を選択したときの青い背景を変更 */
+.date_field input[type="date"]::-webkit-datetime-edit-year-field:focus,
+.date_field input[type="date"]::-webkit-datetime-edit-month-field:focus,
+.date_field input[type="date"]::-webkit-datetime-edit-day-field:focus {
+  background-color: transparent;
+  color: #333;
+}
+
+/* 入力欄全体のフォーカス枠を消す */
+.date_field input[type="date"]:focus {
+  outline: none;
+}

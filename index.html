@@ -9,27 +9,47 @@
 </head>
 <body>
   <h3>カレンダーのテスト</h3>
-  <div class="date_wrapper">
-    <label for="purchaseDateText">日付</label>
-    <div class="date_field">
-      <input type="text" id="purchaseDateText" name="purchaseDateText"
-             class="date_text" inputmode="text" autocomplete="off"
-             maxlength="14" aria-describedby="dateError" >
-      <span class="date_mask" aria-hidden="true">
-        <span id="maskTyped"></span><span id="maskRest" class="date_mask_rest">年 / 月 / 日</span>
-      </span>
-      <!-- 外部SVGが不要なように、カレンダーアイコンを埋め込み -->
-      <svg class="calendar_icon" width="24" height="24" viewBox="0 0 24 24"
-           fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="16" rx="2"/>
-        <path d="M7 3v4M17 3v4M3 10h18"/>
-      </svg>
-      <input type="date" id="purchaseDate" class="date_picker"
-             aria-label="カレンダーから日付を選択" tabindex="-1">
-    </div>
-    <p class="invalid" id="dateError" role="status" aria-live="polite" hidden></p>
-    <p class="saved_date" id="savedDate" aria-live="polite"></p>
+
+
+
+<div class="date_wrapper">
+  <label for="purchaseDate">日付</label>
+
+  <div class="date_field">
+
+    <!-- 年月日を入力・選択する -->
+    <input
+      type="date"
+      id="purchaseDate"
+      name="purchaseDate"
+      aria-label="年月日を入力または選択">
+
+    <!-- 未入力時の表示 -->
+    <span
+      id="datePlaceholder"
+      class="date_placeholder"
+      aria-hidden="true">
+      年 / 月 / 日
+    </span>
+
+    <!-- カレンダーアイコン -->
+    <img
+      class="calendar_icon"
+      src="calender-icon.svg"
+      width="24"
+      height="24"
+      alt="">
+
   </div>
+
+  <p id="dateError" class="invalid" hidden></p>
+  <p id="savedDate"></p>
+</div>
+
+
+
+
+  
+  <input type="date" id="aaa" class="test" aria-label="カレンダーから日付を選択">
 </body>
 </html>
