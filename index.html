@@ -2,43 +2,10 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エコキュートのお買い上げ日</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <main>
-    <div class="main_wrap">
-      <div class="input_area">
-        <h4>エコキュートのお買い上げ日 20261005</h4>
-        <p class="note">※エコキュートの「機器保証書」に記載されているお買い上げ日をご入力ください。</p>
-        <input type="date" id="purchaseDate">
-      </div>
-    </div>
-  </main>
-
-  <script>
-    // Angular の [max]="todayDate" に相当する処理
-    var dateInput = document.getElementById("purchaseDate");
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-    var maxDate = year + "-" + (month < 10 ? "0" : "") + month + "-" +
-      (day < 10 ? "0" : "") + day;
-
-    if (dateInput.type === "date") {
-      dateInput.setAttribute("max", maxDate);
-    } else {
-      dateInput.setAttribute("placeholder", "YYYY-MM-DD");
-      dateInput.setAttribute("pattern", "[0-9]{4}-[0-9]{2}-[0-9]{2}");
-      dateInput.setAttribute("inputmode", "numeric");
-    }
-
-    // Angular の (ngModelChange)="updateInput()" に相当する処理
-    dateInput.addEventListener("change", function () {
-      console.log("選択されたお買い上げ日:", dateInput.value);
-    });
-  </script>
+  <input type="date">
 </body>
 </html>
